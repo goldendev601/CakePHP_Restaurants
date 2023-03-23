@@ -1,0 +1,385 @@
+msgid "Change Location"
+msgstr "Changer de lieu"
+
+msgid "Sign Up"
+msgstr "S'inscrire"
+
+msgid "Login"
+msgstr "S'identifier"
+
+msgid "FIND RESTAURANTS"
+msgstr "TROUVER RESTAURANTS"
+
+msgid "Type delivery location"
+msgstr "Type de livraison"
+
+msgid "We deliver to your doorstep"
+msgstr "Nous livrons à votre porte"
+
+msgid "HOW IT WORKS"
+msgstr "COMMENT ÇA MARCHE"
+
+msgid "DISCOVER"
+msgstr "DÉCOUVRIR"
+
+msgid "ADD YOUR MENU"
+msgstr "AJOUTEZ VOTRE MENU"
+
+msgid "PLACE ORDER"
+msgstr "PASSER LA COMMANDE"
+
+msgid "GET DELIVERED"
+msgstr "OBTENIR LIVRÉ"
+
+msgid "Find Your Local restaurants"
+msgstr "Trouvez vos restaurants locaux" 
+
+msgid "Choose Your favourite Menu"
+msgstr "Choisissez votre menu préféré"
+
+msgid "And Pay by Card Or Cash"
+msgstr "Et payer par carte ou en espèces"
+
+msgid "And enjoy with your food"
+msgstr "Et profitez de votre nourriture" 
+
+msgid "PARTNER WITH US"
+msgstr "PARTENAIRE AVEC NOUS"
+
+msgid "Join the thousands of other restaurants who benefit from having their menus on Comeneat"
+msgstr "Rejoignez les milliers d'autres restaurants qui bénéficient de leurs menus sur Comeneat"
+
+msgid "Online Ordering for"
+msgstr "Commande en ligne pour"
+
+msgid "your customers"
+msgstr "vos clients"
+
+msgid "Bring your restaurant online and allow your customers to pre-order takeaways and deliveries for their next meal"
+msgstr "Apportez votre restaurant en ligne et permettez à vos clients de pré-commander des plats à emporter et des livraisons pour leur prochain repas"
+
+msgid "Live Order Tracking"
+msgstr "Suivi des commandes en direct"
+
+msgid "for your customers"
+msgstr "pour vos clients"
+
+msgid "Through our system, Customer can track driver location instanly for their orders"
+msgstr "Grâce à notre système, le client peut tracer l'emplacement du conducteur instanly pour leurs commandes"
+
+msgid "GET STARTED"
+msgstr "COMMENCER"
+
+msgid "Join the thousands of other restaurants who benefit from having their menus on Comeneat"
+msgstr "Rejoignez les milliers d'autres restaurants qui en bénéficient d'avoir leurs menus sur Comeneat"
+
+msgid "SIGNUP NOW"
+msgstr "S'INSCRIRE MAINTENANT"
+
+msgid "For Company"
+msgstr "Pour la compagnie"
+
+msgid "For Customer"
+msgstr "Pour le client"
+
+msgid "For Restaurant"
+msgstr "Pour le restaurant"
+
+msgid "Privacy Policy"
+msgstr "Politique de confidentialité"
+
+msgid "Restaurant login"
+msgstr "Connexion au restaurant"
+
+msgid "About us"
+msgstr "À propos de nous"
+
+msgid "Registration"
+msgstr "enregistrement"
+
+msgid "Cancellation Policy"
+msgstr "Politique d'annulation"
+
+msgid "Terms"
+msgstr "termes"
+
+msgid "Conditions"
+msgstr "conditions"
+
+msgid "All Rights Reserved"
+msgstr "Tous les droits sont réservés"
+
+msgid "Offers Near You"
+msgstr "Offres près de chez vous"
+
+msgid "Delivery Restaurants"
+msgstr "Livraison Restaurants"
+
+msgid "Collection Restaurants"
+msgstr "Restaurants de Collection"
+
+msgid "FILTER RESULTS"
+msgstr "RÉSULTATS DU FILTRE"
+
+msgid "Reviews"
+msgstr "Avis"
+
+msgid "Min Cost"
+msgstr "Coût min"
+
+msgid "miles"
+msgstr "miles"
+
+msgid "Delivery"
+msgstr "Livraison"
+
+msgid "Distance"
+msgstr "Distance" 
+
+msgid "10% off 1st time"
+msgstr "10% de réduction sur la 1ère fois"
+
+msgid "Free delivery over $50"
+msgstr "Livraison gratuite de plus de 50 $" 
+
+msgid "Offers"
+msgstr "Des offres"
+
+msgid "Book a table"
+msgstr "Réserver une table"
+
+msgid "Categories"
+msgstr "Catégories"
+
+msgid "Opening Hours"
+msgstr "Heures d'ouverture"
+
+msgid "Monday"
+msgstr "Lundi"
+
+msgid "Tuesday"
+msgstr "Mardi"
+
+msgid "Wednesday"
+msgstr "Mercredi"
+
+msgid "Thursday"
+msgstr "Jeudi"
+
+msgid "Friday"
+msgstr "Vendredi"
+
+msgid "Saturday"
+msgstr "samedi"
+
+msgid "Sunday"
+msgstr "dimanche"
+
+msgid "Closed"
+msgstr "Fermé"
+
+msgid "Map"
+msgstr "Carte"
+
+msgid "No Offer found"
+msgstr "Aucune offre trouvée"
+
+msgid "Guest Count"
+msgstr "Nombre d'invités"
+
+msgid "Select Guest"
+msgstr "Sélectionner un invité"
+
+msgid "Date/Time"
+msgstr "Date/heure" 
+
+msgid "Select Time"
+msgstr "Sélectionnez l'heure"
+
+msgid "Name"
+msgstr "prénom"
+
+msgid "Phone"
+msgstr "Téléphone"
+
+msgid "Your Instructions"
+msgstr "Vos instructions" 
+
+msgid "Submit"
+msgstr "Soumettre"
+
+msgid "Your Cart"
+msgstr "Votre panier"
+
+msgid "Pickup"
+msgstr "Ramasser"
+
+msgid "Minimum Order"
+msgstr "Commande minimum"
+
+msgid "Subtotal"
+msgstr "Total"
+
+msgid "Delivery Charge"
+msgstr "Frais de livraison"
+
+msgid "Checkout"
+msgstr "Check-out" 
+
+msgid "Your Cart Empty"
+msgstr "Votre panier vide"  
+
+msgid "Please fill out the below form-group"
+msgstr "S'il vous plaît remplir le formulaire ci-dessous"
+
+msgid "Login with Facebook"
+msgstr "Se connecter avec Facebook" 
+
+msgid "Login with Google+"
+msgstr "Connectez-vous avec Google+"  
+
+msgid "OR"
+msgstr "OU"
+
+msgid "Login with Facebook"
+msgstr "Se connecter avec Facebook" 
+
+msgid "Login with Google+"
+msgstr "Connectez-vous avec Google+"  
+
+msgid "Remember me"
+msgstr "Souviens-toi de moi"
+
+msgid "Forget Password"
+msgstr "Mot de passe oublié" 
+
+msgid "New User"
+msgstr "Nouvel utilisateur"
+
+msgid "Create New Account"
+msgstr "Créer un nouveau compte"  
+
+msgid "Back to"
+msgstr "Retour à"
+
+msgid "Create Account"
+msgstr "Créer un compte"
+
+msgid "Already User"
+msgstr "Déjà utilisateur" 
+
+msgid "Please fill out this form, and we all send you an activation email so you can verify your email address and sign in"
+msgstr "Veuillez remplir ce formulaire et nous vous enverrons tous un e-mail d'activation afin que vous puissiez vérifier votre adresse e-mail et vous connecter"
+
+msgid "Sign In"
+msgstr "Se connecter"  
+
+msgid "Add New Delivery Address"
+msgstr "Ajouter une nouvelle adresse de livraison"
+
+msgid "Restaurant Name"
+msgstr "Nom du restaurant"
+
+msgid "Now"
+msgstr "À présent"
+
+msgid "Later"
+msgstr "Plus tard"
+
+msgid "Apply Voucher Code"
+msgstr "Appliquer le code du bon"
+
+msgid "Apply"
+msgstr "Appliquer"
+
+msgid "Any instructions for delivery (optional)"
+msgstr "Toutes les instructions pour la livraison (facultatif)"
+
+msgid "Payment Details"
+msgstr "Détails de paiement"
+
+msgid "Use Wallet Balance"
+msgstr "Utiliser le solde Google Wallet"
+
+msgid "Available balance"
+msgstr "Solde disponible"
+
+msgid "Payment to be made"
+msgstr "Paiement à effectuer"
+
+msgid "Money in your wallet"
+msgstr "L'argent dans votre portefeuille"
+
+msgid "Pay balance"
+msgstr "Solde de solde"
+
+msgid "COD"
+msgstr "LA MORUE"
+
+msgid "Credit Card"
+msgstr "Carte de crédit"
+
+msgid "Paypal"
+msgstr "Pay Pal"
+
+msgid "Add Card"
+msgstr "Ajouter une carte" 
+
+msgid "Valid till"
+msgstr "Valable jusqu'au"
+
+msgid "Pay with cash on delivery"
+msgstr "Payer en espèces à la livraison"
+
+msgid "Place Order"
+msgstr "Passer la commande"
+
+msgid "Order Information"
+msgstr "Informations sur la commande"
+
+msgid "Add More Items"
+msgstr "Ajouter plus d'articles"
+
+msgid "View cart items"
+msgstr "Voir les articles du panier"
+
+msgid "Item"
+msgstr "Article"
+
+msgid "Qty"
+msgstr "Qté"
+
+msgid "Price"
+msgstr "Prix"
+
+msgid "hide cart items"
+msgstr "Masquer les éléments du panier"
+
+msgid "Add New Deliver Address"
+msgstr "Ajouter une nouvelle adresse de livraison"
+
+msgid "Address Title"
+msgstr "Titre de l'adresse"
+
+msgid "Door no / Flat no"
+msgstr "Porte non / Flat no"
+
+msgid "Address"
+msgstr "Adresse"
+
+msgid "Add Your New Card"
+msgstr "Ajoutez votre nouvelle carte"
+
+msgid "Name on Card"
+msgstr "Nom sur carte"
+
+msgid "Card Number"
+msgstr "Numéro de carte"
+
+msgid "Expiry Date"
+msgstr "Date d'expiration"
+
+msgid "SUBMIT"
+msgstr "SOUMETTRE"
+
+  

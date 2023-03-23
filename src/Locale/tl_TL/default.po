@@ -1,0 +1,3 @@
+
+msgid "FIND RESTAURANTS" 
+msgstr "கண்டுபிடித்து உணவுகள்"

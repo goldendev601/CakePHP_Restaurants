@@ -1,0 +1,1974 @@
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1> Add Restaurant </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="<?php echo ADMIN_BASE_URL ;?>dashboard">
+                    <i class="fa fa-dashboard"></i> Home
+                </a>
+            </li>
+            <li class="active">
+                <a href="<?php echo ADMIN_BASE_URL ;?>restaurants">Manage Restaurant</a>
+            </li>
+        </ol>
+    </section>
+
+    <section class="content clearfix">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="box my-box">
+                    <?php
+                        echo $this->Form->create('restaurantAdd', [
+                            'id' => 'restaurantAdd',
+                            'class' => 'form-horizontal',
+                            'enctype'  =>'multipart/form-data'
+                        ]);
+                        echo $this->Form->input('bySearch', [
+                            'id' => 'bySearch',
+                            'type' => 'hidden',
+                            'class' => 'form-horizontal',
+                            'value'=> SEARCHBY
+                        ]);
+                    ?>
+                        <div class="nav-tabs-custom">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tab_1" data-toggle="tab" id="contactInfo">Contact Info</a></li>
+                                <li><a href="#tab_2" data-toggle="tab" id="restaurantInfo">Restaurant Info</a></li>
+                                <li>
+                                    <?php if(SEARCHBY == 'Google'){?>
+                                      <a href="#tab_3" data-toggle="tab" id="deliveryInfo" onclick="return showMapPolygon();">Delivery Info</a>
+                                    <?php }else{ ?>
+                                      <a href="#tab_3" data-toggle="tab" id="deliveryInfo"
+                                         onclick="return deliveryLocation();">Delivery Info</a>
+                                    <?php } ?>
+                                </li>
+                                <li><a href="#tab_4" data-toggle="tab" id="orderInfo" onclick="return getContactmail()">Order Info</a></li>
+                                <li><a href="#tab_5" data-toggle="tab" id="commissionInfo">Commission</a></li>
+                                <li><a href="#tab_6" data-toggle="tab" id="paymentInfo">PaymentMethods</a></li>
+                                <li><a href="#tab_7" data-toggle="tab" id="invoiceInfo">Invoice Period</a></li>
+                                <li><a href="#tab_8" data-toggle="tab">Meta Tag</a></li>
+                                <li><a href="#tab_9" data-toggle="tab">Promotion</a></li>
+                                <li><a href="#tab_10" data-toggle="tab">Reward Point</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+              <!--Contact Info-->
+                                <div class="tab-pane active" id="tab_1">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">Contact Name<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('contact_name',[
+                                                    'type' => 'text',
+                                                    'id'   => 'contact_name',
+                                                    'class' => 'form-control',
+                                                    'placeholder' => 'Contact Name',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="contactNameErr"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">Contact Phone<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('contact_phone',[
+                                                    'type' => 'text',
+                                                    'id'   => 'contact_phone',
+                                                    'class' => 'form-control',
+                                                    'maxlength' => 11,
+                                                    'onkeypress' => 'return isNumberKey(event)',
+                                                    'placeholder' => 'Contact Phone',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="contactPhoneErr"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">Contact Email<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('contact_email',[
+                                                    'type' => 'text',
+                                                    'id'   => 'contact_email',
+                                                    'class' => 'form-control',
+                                                    'placeholder' => 'Contact Email',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="contactemailErr"></span>
+                                        </div>
+
+                                    <?php if(SEARCHBY == 'Google'){?>
+
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">Address<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('contact_address',[
+                                                    'type' => 'text',
+                                                    'id'   => 'contact_address',
+                                                    'class' => 'form-control',
+                                                    'placeholder' => 'Contact Address',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="addressErr"></span>
+                                        </div>
+
+                                     <?php } else {?>
+
+                                        <div class="form-group">
+                                            <label for="street_address" class="col-sm-2 control-label">Street<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('street_address',[
+                                                    'type' => 'text',
+                                                    'id'   => 'street_address',
+                                                    'class' => 'form-control',
+                                                    'placeholder' => 'Street Address',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="streetErr"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="state_id" class="col-sm-2 control-label">State<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('state_id',[
+                                                    'type' => 'select',
+                                                    'id'   => 'state_id',
+                                                    'class' => 'form-control',
+                                                    'options'=> $statelist,
+                                                    'empty'  => 'select state',
+                                                    'onchange' => 'cityList();',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="stateErr"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="city_id" class="col-sm-2 control-label">City<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <div id="cityList">
+                                                    <?= $this->Form->input('city_id',[
+                                                        'type' => 'select',
+                                                        'id'   => 'city_id',
+                                                        'class' => 'form-control',
+                                                        'empty'  => 'select city',
+                                                        'label' => false
+                                                    ]); ?>
+                                                </div>
+                                            </div>
+                                            <span class="cityErr"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="location_id" class="col-sm-2 control-label">Location<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <div id="locationList">
+                                                    <?= $this->Form->input('location_id',[
+                                                        'type' => 'select',
+                                                        'id'   => 'location_id',
+                                                        'class' => 'form-control',
+                                                        'empty'  => 'select location',
+                                                        'label' => false
+                                                    ]) ?>
+                                                </div>
+                                            </div>
+                                            <span class="locationErr"></span>
+                                        </div>
+                                     <?php } ?>
+
+                                    </div>
+                                </div>
+                <!--Restaurant Info-->
+                                <div class="tab-pane" id="tab_2">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">Restaurant Name<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('restaurant_name',[
+                                                    'type' => 'text',
+                                                    'id'   => 'restaurant_name',
+                                                    'class' => 'form-control',
+                                                    'placeholder' => 'Restaurant Name',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="restnameErr"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">Restaurant Phone<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('restaurant_phone',[
+                                                    'type' => 'text',
+                                                    'id'   => 'restaurant_phone',
+                                                    'maxlength' => 11,
+                                                    'onkeypress' => 'return isNumberKey(event)',
+                                                    'class' => 'form-control',
+                                                    'placeholder' => 'Restaurant Phone',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="restphoneErr"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">Restaurant Logo</label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('restaurant_logo',[
+                                                    'type' => 'file',
+                                                    'id'   => 'restaurant_logo',
+                                                    'class' => 'form-control restLogo',
+                                                    'placeholder' => 'Restaurant Logo',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="restlogoErr"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Monday</label>
+                                            <div class="col-md-6 col-lg-3 closed_mask">
+                                                <div class="sliders_step1">
+                                                    <div id="monday_first" class="slotTimeAdd"></div>
+                                                </div>
+                                                <div class="timeappend">
+                                                    <span class="slider-time" id="monday_first_from">10:00 AM</span> - <span class="slider-time2" id="monday_first_to">12:00 PM</span>
+                                                </div>
+                                                <?= $this->Form->input('monday_first_opentime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'monday_first_opentime',
+                                                        'value' => '10:00 AM',
+                                                        'label' => false));
+                                                ?>
+                                                <?= $this->Form->input('monday_first_closetime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'monday_first_closetime',
+                                                        'value' => '12:00 PM',
+                                                        'label' => false));
+                                                ?>
+                                            </div>
+                                            <div class="col-md-3 closed_mask">
+                                                <div class="sliders_step1">
+                                                    <div id="monday_second" class="slotTimeAdd"></div>
+                                                </div>
+                                                <div class="timeappend">
+                                                    <span class="slider-time" id="monday_second_from">10:00 AM</span> - <span class="slider-time2" id="monday_second_to">12:00 PM</span>
+                                                </div>
+                                                <?= $this->Form->input('monday_second_opentime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'monday_second_opentime',
+                                                        'value' => '10:00 AM',
+                                                        'label' => false));
+                                                ?>
+                                                <?= $this->Form->input('monday_second_closetime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'monday_second_closetime',
+                                                        'value' => '12:00 PM',
+                                                        'label' => false));
+                                                ?>
+                                            </div>
+                                            <div class="col-sm-2 margin-l-15 checkbox checkbox-inline"> <?php
+                                                echo $this->Form->input('Close',
+                                                    array('class'=>'',
+                                                        'hiddenField'=>false,
+                                                        'div' => false,
+                                                        'type' => 'checkbox',
+                                                        'id' => 'monday_status',
+                                                        'onchange' => 'closemask(this)',
+                                                        'name' => 'monday_status',
+                                                        'value'=> 'Close')); ?>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Tuesday</label>
+                                            <div class="col-md-6 col-lg-3 closed_mask">
+                                                <div class="sliders_step1">
+                                                    <div id="tuesday_first" class="slotTimeAdd"></div>
+                                                </div>
+                                                <div class="timeappend">
+                                                    <span class="slider-time" id="tuesday_first_from">10:00 AM</span> - <span class="slider-time2" id="tuesday_first_to">12:00 PM</span>
+                                                </div>
+                                                <?= $this->Form->input('tuesday_first_opentime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'tuesday_first_opentime',
+                                                        'value' => '10:00 AM',
+                                                        'label' => false));
+                                                ?>
+                                                <?= $this->Form->input('tuesday_first_closetime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'tuesday_first_closetime',
+                                                        'value' => '12:00 PM',
+                                                        'label' => false));
+                                                ?>
+                                            </div>
+                                            <div class="col-md-3 closed_mask">
+                                                <div class="sliders_step1">
+                                                    <div id="tuesday_second" class="slotTimeAdd"></div>
+                                                </div>
+                                                <div class="timeappend">
+                                                    <span class="slider-time" id="tuesday_second_from">10:00 AM</span> - <span class="slider-time2" id="tuesday_second_to">12:00 PM</span>
+                                                </div>
+                                                <?= $this->Form->input('tuesday_second_opentime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'tuesday_second_opentime',
+                                                        'value' => '10:00 AM',
+                                                        'label' => false));
+                                                ?>
+                                                <?= $this->Form->input('tuesday_second_closetime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'tuesday_second_closetime',
+                                                        'value' => '12:00 PM',
+                                                        'label' => false));
+                                                ?>
+                                            </div>
+                                            <div class="col-sm-2 margin-l-15 checkbox checkbox-inline"> <?php
+                                                echo $this->Form->input('Close',
+                                                    array('class'=>'' ,
+                                                        'hiddenField'=>false,
+                                                        'div' => false,
+                                                        'type' => 'checkbox',
+                                                        'id' => 'tuesday_status',
+                                                        'onchange' => 'closemask(this)',
+                                                        'name' => 'tuesday_status',
+                                                        'value'=> 'Close')); ?>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Wednesday</label>
+                                            <div class="col-md-6 col-lg-3 closed_mask">
+                                                <div class="sliders_step1">
+                                                    <div id="wednesday_first" class="slotTimeAdd"></div>
+                                                </div>
+                                                <div class="timeappend">
+                                                    <span class="slider-time" id="wednesday_first_from">10:00 AM</span> - <span class="slider-time2" id="wednesday_first_to">12:00 PM</span>
+                                                </div>
+                                                <?= $this->Form->input('wednesday_first_opentime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'wednesday_first_opentime',
+                                                        'value' => '10:00 AM',
+                                                        'label' => false));
+                                                ?>
+                                                <?= $this->Form->input('wednesday_first_closetime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'wednesday_first_closetime',
+                                                        'value' => '12:00 PM',
+                                                        'label' => false));
+                                                ?>
+                                            </div>
+                                            <div class="col-md-3 closed_mask">
+                                                <div class="sliders_step1">
+                                                    <div id="wednesday_second" class="slotTimeAdd"></div>
+                                                </div>
+                                                <div class="timeappend">
+                                                    <span class="slider-time" id="wednesday_second_from">10:00 AM</span> - <span class="slider-time2" id="wednesday_second_to">12:00 PM</span>
+                                                </div>
+                                                <?= $this->Form->input('wednesday_second_opentime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'wednesday_second_opentime',
+                                                        'value' => '10:00 AM',
+                                                        'label' => false));
+                                                ?>
+                                                <?= $this->Form->input('wednesday_second_closetime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'wednesday_second_closetime',
+                                                        'value' => '12:00 PM',
+                                                        'label' => false));
+                                                ?>
+                                            </div>
+                                            <div class="col-sm-2 margin-l-15 checkbox checkbox-inline"> <?php
+                                                echo $this->Form->input('Close',
+                                                    array('class'=>'' ,
+                                                        'hiddenField'=>false,
+                                                        'div' => false,
+                                                        'type' => 'checkbox',
+                                                        'id' => 'wednesday_status',
+                                                        'onchange' => 'closemask(this)',
+                                                        'name' => 'wednesday_status',
+                                                        'value'=> 'Close')); ?>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Thursday</label>
+                                            <div class="col-md-6 col-lg-3 closed_mask">
+                                                <div class="sliders_step1">
+                                                    <div id="thursday_first" class="slotTimeAdd"></div>
+                                                </div>
+                                                <div class="timeappend">
+                                                    <span class="slider-time" id="thursday_first_from">10:00 AM</span> - <span class="slider-time2" id="thursday_first_to">12:00 PM</span>
+                                                </div>
+                                                <?= $this->Form->input('thursday_first_opentime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'thursday_first_opentime',
+                                                        'value' => '10:00 AM',
+                                                        'label' => false));
+                                                ?>
+                                                <?= $this->Form->input('thursday_first_closetime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'thursday_first_closetime',
+                                                        'value' => '12:00 PM',
+                                                        'label' => false));
+                                                ?>
+                                            </div>
+                                            <div class="col-md-3 closed_mask">
+                                                <div class="sliders_step1">
+                                                    <div id="thursday_second" class="slotTimeAdd"></div>
+                                                </div>
+                                                <div class="timeappend">
+                                                    <span class="slider-time" id="thursday_second_from">10:00 AM</span> - <span class="slider-time2" id="thursday_second_to">12:00 PM</span>
+                                                </div>
+                                                <?= $this->Form->input('thursday_second_opentime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'thursday_second_opentime',
+                                                        'value' => '10:00 AM',
+                                                        'label' => false));
+                                                ?>
+                                                <?= $this->Form->input('thursday_second_closetime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'thursday_second_closetime',
+                                                        'value' => '12:00 PM',
+                                                        'label' => false));
+                                                ?>
+                                            </div>
+                                            <div class="col-sm-2 margin-l-15 checkbox checkbox-inline"> <?php
+                                                echo $this->Form->input('Close',
+                                                    array('class'=>'' ,
+                                                        'hiddenField'=>false,
+                                                        'div' => false,
+                                                        'type' => 'checkbox',
+                                                        'id' => 'thursday_status',
+                                                        'onchange' => 'closemask(this)',
+                                                        'name' => 'thursday_status',
+                                                        'value'=> 'Close')); ?>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Friday</label>
+                                            <div class="col-md-6 col-lg-3 closed_mask">
+                                                <div class="sliders_step1">
+                                                    <div id="friday_first" class="slotTimeAdd"></div>
+                                                </div>
+                                                <div class="timeappend">
+                                                    <span class="slider-time" id="friday_first_from">10:00 AM</span> - <span class="slider-time2" id="friday_first_to">12:00 PM</span>
+                                                </div>
+                                                <?= $this->Form->input('friday_first_opentime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'friday_first_opentime',
+                                                        'value' => '10:00 AM',
+                                                        'label' => false));
+                                                ?>
+                                                <?= $this->Form->input('friday_first_closetime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'friday_first_closetime',
+                                                        'value' => '12:00 PM',
+                                                        'label' => false));
+                                                ?>
+                                            </div>
+                                            <div class="col-md-3 closed_mask">
+                                                <div class="sliders_step1">
+                                                    <div id="friday_second" class="slotTimeAdd"></div>
+                                                </div>
+                                                <div class="timeappend">
+                                                    <span class="slider-time" id="friday_second_from">10:00 AM</span> - <span class="slider-time2" id="friday_second_to">12:00 PM</span>
+                                                </div>
+                                                <?= $this->Form->input('friday_second_opentime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'friday_second_opentime',
+                                                        'value' => '10:00 AM',
+                                                        'label' => false));
+                                                ?>
+                                                <?= $this->Form->input('friday_second_closetime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'friday_second_closetime',
+                                                        'value' => '12:00 PM',
+                                                        'label' => false));
+                                                ?>
+                                            </div>
+                                            <div class="col-sm-2 margin-l-15 checkbox checkbox-inline"> <?php
+                                                echo $this->Form->input('Close',
+                                                    array('class'=>'' ,
+                                                        'hiddenField'=>false,
+                                                        'div' => false,
+                                                        'type' => 'checkbox',
+                                                        'id' => 'friday_status',
+                                                        'onchange' => 'closemask(this)',
+                                                        'name' => 'friday_status',
+                                                        'value'=> 'Close')); ?>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Saturday</label>
+                                            <div class="col-md-6 col-lg-3 closed_mask">
+                                                <div class="sliders_step1">
+                                                    <div id="saturday_first" class="slotTimeAdd"></div>
+                                                </div>
+                                                <div class="timeappend">
+                                                    <span class="slider-time" id="saturday_first_from">10:00 AM</span> - <span class="slider-time2" id="saturday_first_to">12:00 PM</span>
+                                                </div>
+                                                <?= $this->Form->input('saturday_first_opentime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'saturday_first_opentime',
+                                                        'value' => '10:00 AM',
+                                                        'label' => false));
+                                                ?>
+                                                <?= $this->Form->input('saturday_first_closetime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'saturday_first_closetime',
+                                                        'value' => '12:00 PM',
+                                                        'label' => false));
+                                                ?>
+                                            </div>
+                                            <div class="col-md-3 closed_mask">
+                                                <div class="sliders_step1">
+                                                    <div id="saturday_second" class="slotTimeAdd"></div>
+                                                </div>
+                                                <div class="timeappend">
+                                                    <span class="slider-time" id="saturday_second_from">10:00 AM</span> - <span class="slider-time2" id="saturday_second_to">12:00 PM</span>
+                                                </div>
+                                                <?= $this->Form->input('saturday_second_opentime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'saturday_second_opentime',
+                                                        'value' => '10:00 AM',
+                                                        'label' => false));
+                                                ?>
+                                                <?= $this->Form->input('saturday_second_closetime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'saturday_second_closetime',
+                                                        'value' => '12:00 PM',
+                                                        'label' => false));
+                                                ?>
+                                            </div>
+                                            <div class="col-sm-2 margin-l-15 checkbox checkbox-inline"> <?php
+                                                echo $this->Form->input('Close',
+                                                    array('class'=>'' ,
+                                                        'hiddenField'=>false,
+                                                        'div' => false,
+                                                        'type' => 'checkbox',
+                                                        'onchange' => 'closemask(this)',
+                                                        'id' => 'saturday_status',
+                                                        'name' => 'saturday_status',
+                                                        'value'=> 'Close')); ?>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Sunday</label>
+                                            <div class="col-md-6 col-lg-3 closed_mask">
+                                                <div class="sliders_step1">
+                                                    <div id="sunday_first" class="slotTimeAdd"></div>
+                                                </div>
+                                                <div class="timeappend">
+                                                    <span class="slider-time" id="sunday_first_from">10:00 AM</span> - <span class="slider-time2" id="sunday_first_to">12:00 PM</span>
+                                                </div>
+                                                <?= $this->Form->input('sunday_first_opentime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'sunday_first_opentime',
+                                                        'value' => '10:00 AM',
+                                                        'label' => false));
+                                                ?>
+                                                <?= $this->Form->input('sunday_first_closetime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'sunday_first_closetime',
+                                                        'value' => '12:00 PM',
+                                                        'label' => false));
+                                                ?>
+                                            </div>
+                                            <div class="col-md-3 closed_mask">
+                                                <div class="sliders_step1">
+                                                    <div id="sunday_second" class="slotTimeAdd"></div>
+                                                </div>
+                                                <div class="timeappend">
+                                                    <span class="slider-time" id="sunday_second_from">10:00 AM</span> - <span class="slider-time2" id="sunday_second_to">12:00 PM</span>
+                                                </div>
+                                                <?= $this->Form->input('sunday_second_opentime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'sunday_second_opentime',
+                                                        'value' => '10:00 AM',
+                                                        'label' => false));
+                                                ?>
+                                                <?= $this->Form->input('sunday_second_closetime',
+                                                    array('type' => 'hidden',
+                                                        'id' => 'sunday_second_closetime',
+                                                        'value' => '12:00 PM',
+                                                        'label' => false));
+                                                ?>
+                                            </div>
+                                            <div class="col-sm-2 margin-l-15 checkbox checkbox-inline"> <?php
+                                                echo $this->Form->input('Close',
+                                                    array('class'=>'' ,
+                                                        'hiddenField'=>false,
+                                                        'div' => false,
+                                                        'type' => 'checkbox',
+                                                        'id' => 'sunday_status',
+                                                        'onchange' => 'closemask(this)',
+                                                        'name' => 'sunday_status',
+                                                        'value'=> 'Close')); ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">Restaurant Tax<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('restaurant_tax',[
+                                                    'type' => 'text',
+                                                    'id'   => 'restaurant_tax',
+                                                    'class' => 'form-control',
+                                                    'placeholder' => 'Restaurant Tax',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="taxErr"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">Cuisines<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('restaurant_cuisine',[
+                                                    'type' => 'select',
+                                                    'multiple' => 'multiple',
+                                                    'id'   => 'restaurant_cuisine',
+                                                    'class' => 'form-control',
+                                                    'options' => $cuisinesList,
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="cuisineErr"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Visibility</label>
+                                            <div class="col-sm-4">
+                                                <label class="radio-inline no-padding-left">
+                                                    <input type="radio" name="restaurant_visibility" class="minimal" checked value="FOS">
+                                                    FOS
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="restaurant_visibility" class="minimal" value="external">
+                                                    External
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="restaurant_visibility" class="minimal" value="both">
+                                                    Both
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Do You Wanna Dispatch<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <label class="radio-inline no-padding-left">
+                                                    <input type="radio" name="restaurant_dispatch" class="minimal" checked value="Yes">
+                                                    Yes
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="restaurant_dispatch" class="minimal" value="No">
+                                                    No
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Pickup<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <label class="radio-inline no-padding-left">
+                                                    <input type="radio" name="restaurant_pickup" class="minimal" checked value="Yes">
+                                                    Yes
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="restaurant_pickup" class="minimal" value="No">
+                                                    No
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Delivery<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <label class="radio-inline no-padding-left">
+                                                    <input type="radio" name="restaurant_delivery" class="minimal" checked value="Yes">
+                                                    Yes
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="restaurant_delivery" class="minimal" value="No">
+                                                    No
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Book a Table<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <label class="radio-inline no-padding-left">
+                                                    <input type="radio" name="restaurant_booktable" class="minimal" checked value="Yes">
+                                                    Yes
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="restaurant_booktable" class="minimal" value="No">
+                                                    No
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Restaurant About</label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('restaurant_about',[
+                                                    'type' => 'textarea',
+                                                    'id'   => 'restaurant_about',
+                                                    'class' => 'form-control',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="restaboutErr"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Username<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('username',[
+                                                    'type' => 'text',
+                                                    'id'   => 'username',
+                                                    'class' => 'form-control',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="usernameErr"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Password<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('password',[
+                                                    'type' => 'password',
+                                                    'id'   => 'password',
+                                                    'class' => 'form-control',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="passwordErr"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                 <!--Delivery Info-->
+                                <div class="tab-pane" id="tab_3">
+                                    <div class="box-body">
+                                        <div class="row contain">
+                                            <div class="col-md-offset-3 col-md-6 col-lg-4">
+                                                <label id="deliveryCityErr" class="error"></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">Estimate Time <span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('estimate_time',[
+                                                    'type' => 'text',
+                                                    'id'   => 'estimate_time',
+                                                    'class' => 'form-control',
+                                                    'placeholder' => 'Delivery Estimated Time',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="estimateErr"></span>
+                                        </div>
+
+                                   <?php if(SEARCHBY == 'Google') {?>
+                                    <div id="byGoogle">
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">Minimum Order <span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('minimum_order',[
+                                                    'type' => 'text',
+                                                    'id'   => 'minimum_order',
+                                                    'class' => 'form-control',
+                                                    'placeholder' => 'Minimum Order',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="minimumErr"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">Free Delivery</label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('free_delivery',[
+                                                    'type' => 'text',
+                                                    'id'   => 'free_delivery',
+                                                    'class' => 'form-control',
+                                                    'placeholder' => 'Free Delivery',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="freedeliveryErr"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Map Mode</label>
+                                            <div class="col-sm-4">
+                                                <label class="radio-inline no-padding-left">
+                                                    <input type="radio" name="map_mode" class="" checked value="Circle" onclick="return showMapPolygon();">
+                                                    Circle
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="map_mode" class="" value="Polygon" onclick="return showMapPolygon();">
+                                                    Polygon
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-12 col-xs-12 col-md-3">
+                                                <div class="notifytext select-edit"><i class="fa fa-bell-o"></i> Select & click to edit</div>
+
+                                                <div class="col-xs-12 no-padding" id="circleMapDiv">
+                                                    <label class="mapheading">Start with a circle</label>
+                                                    <div class="radius_settings  margin-b-10" id="radius_settings_0">
+                                                        <div class="input-group margin-b-10">
+                                                            <?= $this->Form->input('DeliverySettings[0][delivery_miles]', [
+                                                                'type' => 'text',
+                                                                'class' => 'form-control',
+                                                                'id' => '0',
+                                                                'placeholder' => 'Enter Miles (radius)',
+                                                                'name' => 'DeliverySettings[0][delivery_miles]',
+                                                                'label'=>false,
+                                                            ]) ?>
+
+                                                            <div class="input-group-addon" onclick="return generateRadius(0)" style="cursor: pointer"><i class="fa fa-check"></i> </div>
+                                                        </div>
+                                                        <div class="setColor" id="set_color_0"></div>
+                                                    </div>
+                                                    <div id="textAppend"></div>
+                                                    <a href="javascript:;" class="addlocation" onclick="radiusTextAppend();">Add More</a>
+                                                </div>
+
+                                                <div id="deliveryCharge">
+                                                    <div class="radius_setting margin-b-10" id="deliveryCharge_0" style="display: none">
+                                                        <?= $this->Form->input('AreaMaps[0][delivery_charge]', [
+                                                            'type' => 'text',
+                                                            'id' => 0,
+                                                            'class' => 'form-control margin-b-10',
+                                                            'placeholder' => 'Enter Delivery Charge',
+                                                            'label'=>false,
+                                                            'name' => 'AreaMaps[0][delivery_charge]',
+                                                            'id' => 'delCharge0'
+                                                        ]) ?>
+                                                        <input id="area_0_coords" type="hidden" name="coords[0]area"/>
+                                                        <input id="area_0_record" type="hidden" name="record[0]area"/>
+                                                        <input id="area_0_mapid" type="hidden" name="mapid[0]area"/>
+                                                        <div class="chargeError"></div>
+                                                    </div>
+                                                    <div id="chargeAppend"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-xs-12 col-md-9">
+                                                <div class="mapCircle"></div>
+                                                <div id="googleMapShow">
+                                                </div>
+                                                <div id="polygon-map" class="col-sm-12" style="display: none">
+                                                    <div id="map-view" style="height: 600px; width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   <?php } else {?>
+                   <!-- AreaZipcode   -->
+                                    <div id="AreaZipcode">
+                                        <div class="form-group">
+                                            <div class="col-sm-9 col-sm-offset-3">
+                                                <div class="row">
+                                                    <div class="col-sm-2">
+                                                        <div class="labelname">City</div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div class="labelname">
+                                                            <?php
+                                                            $searchBy = ( SEARCHBY== 'zip') ? 'Postcode' : 'Areaname';
+                                                            echo $searchBy; ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div class="labelname">Minimum Order</div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div class="labelname">Delivery Charge</div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <a onclick="appendDeliveryLocation();" class="btn btn-success">Add</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" id="removeLocation_0">
+                                            <div class="col-sm-9 col-sm-offset-3">
+                                                <div class="row">
+                                                    <div class="col-sm-2"> <?php
+                                                        echo $this->Form->input('DeliveryLocation.city_name',[
+                                                            'class'=>'form-control',
+                                                            'type' => 'text',
+                                                            'placeholder'=>'City',
+                                                            'id'=>'city_name_0',
+                                                            'name' => 'data[DeliveryLocation][0][city_name]',
+                                                            'onkeyup' => 'getCityName(this.id);',
+                                                            'label'=>false
+                                                        ]); ?>
+                                                    </div>
+                                                    <div class="col-sm-2"><?php
+                                                        echo $this->Form->input('DeliveryLocation.location_name',[
+                                                            'class'=>'form-control deliveryLocationName',
+                                                            'placeholder'=>'Location',
+                                                            'type' => 'text',
+                                                            'id' => 'location_name_0',
+                                                            'name' => 'data[DeliveryLocation][0][location_name]',
+                                                            'onkeyup' => 'getLocationName(this.id, 0);',
+                                                            'label'=>false
+                                                        ]);?>
+                                                    </div>
+                                                    <div class="col-sm-2"><?php
+                                                        echo $this->Form->input('DeliveryLocation.minimum_order',[
+                                                            'class'=>'form-control',
+                                                            'placeholder'=>'Minimum Order',
+                                                            'type' => 'text',
+                                                            'id' => 'minimum_order_0',
+                                                            'name' => 'data[DeliveryLocation][0][minimum_order]',
+                                                            'label'=>false
+                                                        ]); ?>
+                                                    </div>
+                                                    <div class="col-sm-2"> <?php
+                                                        echo $this->Form->input('DeliveryLocation.delivery_charge',[
+                                                            'class'=>'form-control',
+                                                            'placeholder'=>'Delivery Charge',
+                                                            'type' => 'text',
+                                                            'id' => 'delivery_charge_0',
+                                                            'data-attr'=>'delivery_charge',
+                                                            'name' => 'data[DeliveryLocation][0][delivery_charge]',
+                                                            'label'=>false
+                                                        ]);
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="appendDeliveryLocation"></div>
+                                    </div>
+                                   <?php } ?>
+                                 </div>
+                             </div>
+
+                 <!--Order Info-->
+                                <div class="tab-pane" id="tab_4">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Email Order</label>
+                                            <div class="col-sm-4">
+                                                <label class="radio-inline no-padding-left">
+                                                    <input type="radio" name="email_order" class="minimal mailOrder" value="Yes">
+                                                    Yes
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="email_order" class="minimal mailOrderNo" value="No" checked>
+                                                    No
+                                                </label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="orderEmail" style="display: none;">
+                                            <label class="col-sm-2 control-label">Order Email<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('order_email',[
+                                                    'type' => 'text',
+                                                    'id'   => 'order_email',
+                                                    'class' => 'form-control',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="orderEmailErr"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">SMS Option</label>
+                                            <div class="col-sm-4">
+                                                <label class="radio-inline no-padding-left">
+                                                    <input type="radio" name="sms_option" class="minimal smsOrder" value="Yes">
+                                                    Yes
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="sms_option" class="minimal smsOrderNo" value="No" checked>
+                                                    No
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" id="smsOrder" style="display: none;">
+                                            <label class="col-sm-2 control-label">Phone Number<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('sms_phonenumber',[
+                                                    'type' => 'text',
+                                                    'id'   => 'sms_phonenumber',
+                                                    'maxlength' => 11,
+                                                    'onkeypress' => 'return isNumberKey(event)',
+                                                    'class' => 'form-control',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="smsPhoneErr"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="tab-pane" id="tab_5">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Restaurant Commission<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('restaurant_commission',[
+                                                    'type' => 'text',
+                                                    'id'   => 'restaurant_commission',
+                                                    'class' => 'form-control',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="commissionErr"></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="tab_6">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <?php if(!empty($paymentList)) {
+                                                foreach($paymentList as $kPay => $vPay){?>
+                                                    <label class="col-sm-2 control-label">
+                                                         <?php echo $vPay['payment_method_name'];?>
+                                                             <span class="help">*</span>
+                                                    </label>
+                                                    <div class="col-sm-4">
+                                                        <label class="radio-inline no-padding-left">
+                                                            <input type="radio" id="payment_<?php echo $vPay['id'];?>" name="payment_id[<?php echo $vPay['id'];?>]" class="minimal" value="Y" checked="checked"> Yes
+                                                        </label>
+                                                        <label class="radio-inline">
+                                                            <input type="radio" id="payment_<?php echo $vPay['id'];?>" name="payment_id[<?php echo $vPay['id'];?>]" class="minimal" value="N"> No
+                                                        </label>
+                                                    </div>
+                                            <?php }
+                                            } ?>
+                                            <span class="paymethodErr"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="tab_7">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Invoice Period<span class="help">*</span></label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('invoice_period',[
+                                                    'type' => 'select',
+                                                    'id'   => 'invoice_period',
+                                                    'class' => 'form-control',
+                                                    'options' => [
+                                                            '15' => '15day',
+                                                            '30' => '30day'
+                                                    ],
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="tab_8">
+                                    <div class="box-body">
+                                        <div class="form-group clearfix">
+                                            <label class="col-sm-2 control-label">Meta Title</label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('meta_title',[
+                                                    'type' => 'textarea',
+                                                    'id'   => 'meta_title',
+                                                    'class' => 'form-control',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Meta Keyword</label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('meta_keyword',[
+                                                    'type' => 'textarea',
+                                                    'id'   => 'meta_keyword',
+                                                    'class' => 'form-control',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Meta Description</label>
+                                            <div class="col-sm-4">
+                                                <?= $this->Form->input('meta_description',[
+                                                    'type' => 'textarea',
+                                                    'id'   => 'meta_description',
+                                                    'class' => 'form-control',
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane new-item" id="tab_9">
+                                    <div class="row contain">
+                                        <div class="col-md-offset-3 col-md-6 col-lg-4"> 
+                                            <label id="orderError" class="error"></label>
+                                        </div>
+                                    </div>
+                                    <div id="promo_image" class="form-group clearfix">
+                                        <label class="col-md-3 control-label">Promotion Image <span class="star">*</span></label>
+                                        <div class="col-md-9 col-lg-9"> 
+                                            <a href="javascript:void(0);" class="addNew flt" onclick="return promotionImage();">Add New Image</a>
+                                            <span class="note-point"><b>Note :</b> Approximately image width and height should be 414px X 300px</span>
+                                            <div id="promoStore" class="promoStoreImage"></div>                             
+                                        </div>
+                                    </div>  
+                                </div>
+
+                                <div class="tab-pane new-item" id="tab_10">
+                                    <div class="row contain">
+                                        <div class="col-md-offset-3 col-md-6 col-lg-4">
+                                            <label id="orderError" class="error"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Reward Point</label>
+                                        <div class="col-sm-4">
+                                            <label class="radio-inline no-padding-left">
+                                                <input type="radio" name="reward_option" class="minimal" value="Yes">
+                                                Yes
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="reward_option" class="minimal" value="No" checked>
+                                                No
+                                            </label>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 no-padding">
+                            <button class="btn btn-info m-r-15" type="submit" onclick=" return addRestaurant();">Submit</button>
+                            <a class="btn btn-default" href="<?php echo ADMIN_BASE_URL ?>restaurants"> Cancel</a>
+                        </div>
+                    <?= $this->Form->end();?>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+
+     function closemask(id){            
+        if($(id).prop("checked") === true){
+            $(id).closest(".form-group").find(".closed_mask").addClass("closed");
+        }
+        else{
+            $(id).closest(".form-group").find(".closed_mask").removeClass("closed");
+        }        
+    };
+    
+
+    function cityList() {
+        var state_id = $.trim($("#state_id").val());
+        var bySearch = $.trim($("#bySearch").val());
+
+        $.ajax({
+            type   : 'POST',
+            url    : jssitebaseurl+'restaurants/ajaxaction',
+            data   : {state_id:state_id, bySearch:bySearch, action: 'getCity'},
+            success: function(data){
+                $('#cityList').html(data);
+                return false;
+            }
+        });
+        return false;
+    }
+
+    function locationList() {
+        var state_id = $.trim($("#state_id").val());
+        var city_id = $.trim($("#city_id").val());
+        var bySearch = $.trim($("#bySearch").val());
+        if(state_id != ''){
+            $.ajax({
+                type   : 'POST',
+                url    : jssitebaseurl+'restaurants/ajaxaction',
+                data   : {city_id:city_id, bySearch:bySearch, action: 'getLocation'},
+                success: function(data){
+                    $('#locationList').html(data);
+                    return false;
+                }
+            });
+            return false;
+        }
+    }
+
+    function isValid(mailAddress){
+        var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+        return pattern.test(mailAddress);
+    }
+
+    function addRestaurant() {
+
+        $(".error").html('');
+        var Url         = jssitebaseurl+'restaurants/checkEmail';
+        //Contact Info
+        var contact_name  = $.trim($("#contact_name").val());
+        var contact_phone = $.trim($("#contact_phone").val());
+        var contact_email = $.trim($("#contact_email").val());
+
+        var bySearch      = $.trim($("#bySearch").val());
+        var contact_address = $.trim($("#contact_address").val());
+        var street_address = $.trim($("#street_address").val());
+        var state_id    = $.trim($("#state_id").val());
+        var city_id     = $.trim($("#city_id").val());
+        var location_id = $.trim($("#location_id").val());
+
+        //Restaurant Info
+        var restaurant_name  = $.trim($("#restaurant_name").val());
+        var restaurant_phone = $.trim($("#restaurant_phone").val());
+        var restaurant_logo  = $.trim($(".restLogo").val());
+        var img              = $.trim($(".restLogo").val().split('.').pop().toLowerCase());
+
+        var restaurant_tax = $.trim($("#restaurant_tax").val());
+        var restaurant_cuisine = $.trim($("#restaurant_cuisine").val());
+        var username = $.trim($("#username").val());
+        var password = $.trim($("#password").val());
+
+        //Delivery Info
+        var estimate_time = $.trim($("#estimate_time").val());
+        var minimum_order = $.trim($("#minimum_order").val());
+        //var free_delivery = $.trim($("#free_delivery").val());
+
+        //Order Info
+        var email_order = $('input[name="email_order"]:checked').val();
+        var sms_option  = $('input[name="sms_option"]:checked').val();
+        var order_email = $.trim($("#order_email").val());
+        var sms_phonenumber = $.trim($("#sms_phonenumber").val());
+
+
+        //Commission Info
+        var restaurant_commission = $.trim($("#restaurant_commission").val());
+
+        if(contact_name == '') {
+            $("#contactInfo").click();
+            $(".contactNameErr").addClass('error').html('Please enter your contact name');
+            $("#contact_name").focus();
+            return false;
+        }else if(contact_phone == '') {
+            $("#contactInfo").click();
+            $(".contactPhoneErr").addClass('error').html('Please enter your contact phone');
+            $("#contact_phone").focus();
+            return false;
+        }else if(contact_email == '') {
+            $("#contactInfo").click();
+            $(".contactemailErr").addClass('error').html('Please enter your contact email');
+            $("#contact_email").focus();
+            return false;
+        }else if(contact_email != '' && !isValid(contact_email)) {
+            $("#contactInfo").click();
+            $(".contactemailErr").addClass('error').html('Please enter your valid contact email');
+            $("#contact_email").focus();
+            return false;
+        }else if(bySearch != '' && bySearch == 'Google' && contact_address == '') {
+            $("#contactInfo").click();
+            $(".addressErr").addClass('error').html('Please enter your contact address');
+            $("#contact_address").focus();
+            return false;
+        }else if(bySearch != '' && bySearch != 'Google' && street_address == '') {
+            $("#contactInfo").click();
+            $(".streetErr").addClass('error').html('Please enter your street');
+            $("#street_address").focus();
+            return false;
+        }else if(bySearch != '' && bySearch != 'Google' && state_id == '') {
+            $("#contactInfo").click();
+            $(".stateErr").addClass('error').html('Please select your state');
+            $("#state_id").focus();
+            return false;
+        }else if(bySearch != '' && bySearch != 'Google' && city_id == '') {
+            $("#contactInfo").click();
+            $(".cityErr").addClass('error').html('Please  select your city');
+            $("#city_id").focus();
+            return false;
+        }else if(bySearch != '' && bySearch != 'Google' && location_id == '') {
+            $("#contactInfo").click();
+            $(".locationErr").addClass('error').html('Please select your location');
+            $("#location_id").focus();
+            return false;
+        }else if(restaurant_name == '') {
+            $("#restaurantInfo").click();
+            $(".restnameErr").addClass('error').html('Please enter restaurant name');
+            $("#restaurant_name").focus();
+            return false;
+        }else if(restaurant_phone == '') {
+            $("#restaurantInfo").click();
+            $(".restphoneErr").addClass('error').html('Please enter restaurant phone');
+            $("#restaurant_phone").focus();
+            return false;
+        }else if(restaurant_logo != '' && $.inArray(img, ['gif','png','jpg','jpeg']) == -1) {
+            $("#restaurantInfo").click();
+            $(".restlogoErr").addClass('error').html('Please select valid image type restaurant logo');
+            $("#restaurant_logo").focus();
+            return false;
+        }else if(restaurant_tax == '') {
+            $("#restaurantInfo").click();
+            $(".taxErr").addClass('error').html('Please enter restaurant tax');
+            $("#restaurant_tax").focus();
+            return false;
+        }else if(restaurant_cuisine == '') {
+            $("#restaurantInfo").click();
+            $(".cuisineErr").addClass('error').html('Please select a cuisine');
+            $("#restaurant_cuisine").focus();
+            return false;
+        }else if(username == '') {
+            $("#restaurantInfo").click();
+            $(".usernameErr").addClass('error').html('Please enter username');
+            $("#username").focus();
+            return false;
+        }else if(username != '' && !isValid(username)) {
+            $("#restaurantInfo").click();
+            $(".usernameErr").addClass('error').html('Please enter valid username');
+            $("#username").focus();
+            return false;
+        }else if(password == '') {
+            $("#restaurantInfo").click();
+            $(".passwordErr").addClass('error').html('Please enter password');
+            $("#password").focus();
+            return false;
+        }else if(estimate_time == '') {
+            $("#deliveryInfo").click();
+            $(".estimateErr").addClass('error').html('Please enter estimate Time');
+            $("#estimate_time").focus();
+            return false;
+        }else if(bySearch != '' && bySearch == 'Google' && minimum_order == '') {
+            $("#deliveryInfo").click();
+            $(".minimumErr").addClass('error').html('Please enter minimum order');
+            $("#minimum_order").focus();
+            return false;
+        }/*else if(bySearch != '' && bySearch == 'Google' && free_delivery == '') {
+            $("#deliveryInfo").click();
+            $(".freedeliveryErr").addClass('error').html('Please enter free delivery amount');
+            $("#free_delivery").focus();
+            return false;
+        }*/else if(email_order == 'Yes' && order_email == '') {
+            $("#orderInfo").click();
+            $(".orderEmailErr").addClass('error').html('Please enter order email');
+            $("#order_email").focus();
+            return false;
+
+        }else if(order_email != '' && !isValid(order_email)) {
+            $("#orderInfo").click();
+            $(".orderEmailErr").addClass('error').html('Please enter valid order  email');
+            $("#order_email").focus();
+            return false;
+
+        }else if(sms_option === 'Yes' && sms_phonenumber === '') {
+            $("#orderInfo").click();
+            $(".smsPhoneErr").addClass('error').html('Please enter order phone number');
+            $("#sms_phonenumber").focus();
+            return false;
+        }else if(restaurant_commission == '') {
+            $("#commissionInfo").click();
+            $(".commissionErr").addClass('error').html('Please enter commission');
+            $("#restaurant_commission").focus();
+            return false;
+        }else {
+            $.post(
+                Url,
+                {
+                    'contact_email': username,
+                    'restname': restaurant_name,
+                    'id' : ''
+                },
+                function (data) {
+                    if($.trim(data) == 'rest') {
+                        $("#restaurantInfo").click();
+                        $(".restnameErr").addClass('error').html('Restaurant name already exists');
+                        $("#restaurant_name").focus();
+                        return false;
+
+                    }else if($.trim(data) == 'user') {
+                        $("#restaurantInfo").click();
+                        $(".usernameErr").addClass('error').html('Email Already exists');
+                        $("#username").focus();
+                        return false;
+                    }else {
+                        $("#restaurantAdd").submit();
+                    }
+                    return false;
+                }
+            );
+        }
+        return false;
+    }
+
+    //DeliveryInfo Location
+    function deliveryLocation(){
+
+        var searchBy    = $.trim($("#bySearch").val());
+        var stateId     = $.trim($("#state_id").val());
+
+        if(searchBy != '' && searchBy != 'Google' && stateId == '') {
+            $("#contactInfo").click();
+            $(".stateErr").addClass('error').html('Please select your state');
+            $("#state_id").focus();
+            return false;
+        }
+    }
+
+    //DeliveryInfo google
+    function showMapPolygon() {
+
+        var bySearch    = $('#bySearch').val();
+        var StoreId     = $('#StoreId').val();
+        var Url         = jssitebaseurl+'restaurants/ajaxaction';
+        var Address     = $('#contact_address').val();
+        // var distance    = $('#StoreDeliveryDistance').val();
+
+        var mapType =   $.trim($('input[name="map_mode"]:checked').val());
+        if (Address == '') {
+            $("#contactInfo").click();
+            $(".addressErr").addClass('error').html('Please enter your contact address');
+            $("#contact_address").focus();
+            return false;
+        } else if(mapType == 'Circle') {
+
+            $("#circleMapDiv").show();
+            $("#polygon-map").hide();
+            $("#googleMapShow").show();
+            $("#deliveryCharge").hide();
+
+            $.post(
+                Url,
+                {
+                    'address': Address,
+                    'action': 'showMapAdd'
+                },
+                function (data) {
+                    $('#googleMapShow').html(data);
+                    return false;
+                }
+            );
+        } else if(mapType == 'Polygon') {
+            $("#polygon-map").show();
+            $("#circleMapDiv").hide();
+            $("#googleMapShow").hide();
+            $("#deliveryCharge").show();
+            var mapDetails = '';
+            $.post(
+                Url,{'address': Address, 'action': 'showPolygonmap'},
+                function (data) {
+                    showAreaMap(data);
+                }
+            );
+        }
+    }
+
+    function showAreaMap(mapDetails) {
+
+        var Url = jssitebaseurl+'restaurants';
+        //Basic
+        var i,j;
+        var l = 0;
+        var overlay, image, selectedShape,
+            polys   = new Array(),
+            auth    = false;
+        var lat   = $.trim($("#store_latitude").val());
+        var lng   = $.trim($("#store_longitude").val());
+        var resid = '';
+        resid = $.trim($("#StoreId").val());
+        if(lat == '' && lng == '') {
+            var mapDet  =  mapDetails.split("###");
+            lat = mapDet[0];
+            lng = mapDet[1];
+        }
+        var cartodbMapOptions = {
+            zoom: 15,
+            center: new google.maps.LatLng( lat, lng ),
+            disableDefaultUI: true,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        // Init the map
+        map = new google.maps.Map(document.getElementById("map-view"),cartodbMapOptions);
+        getPolygons();
+        var mapManualId   =   0;
+        var Color = ["#800080","#00FF00","#FF00FF","#FF0000","#0000FF","#808000","#008000","#00FFFF","#C71585"];
+        var drawingManager = new google.maps.drawing.DrawingManager({
+            drawingControl: true,
+            drawingControlOptions: {
+                position: google.maps.ControlPosition.TOP_RIGHT,
+                drawingModes: [google.maps.drawing.OverlayType.POLYGON]
+            },
+            polygonOptions: {
+                fillColor: Color[i],
+                fillOpacity: 0.3,
+                strokeColor: '#AA2143',
+                strokeWeight: 2,
+                clickable: true,
+                zIndex: 1,
+                editable: true
+            }
+        });
+        $(".delivery_Charges").each(function() {
+            mapManualId++;
+        });
+        //alert(mapManualId);
+        drawingManager.id   =   l;
+        drawingManager.setMap(map);
+        var myLatlng = new google.maps.LatLng(lat,lng);
+        var marker = new google.maps.Marker({
+            position: myLatlng
+        });
+        marker.setMap(map);
+        $(".mapidCount").each(function() {
+            l++;
+        });
+        google.maps.event.addListener(drawingManager, 'overlaycomplete', function(e) {
+            var newShape = e.overlay;
+            newShape.type = e.type;
+            google.maps.event.addListener(newShape, 'click', function() {
+                setSelection(this);
+            });
+            setSelection(newShape);
+            if(l == 0) {
+                $("#deliveryCharge_0").show();
+                storePolygon(newShape.getPath(), l);
+            } else {
+                if(($("#delCharge" + (l-1)).val() == '')){
+                    alert('Please enter delivery Charge');
+                    deleteSelectedShape();
+                    return false;
+                } else if(($("#delCharge" + (l-1)).val() == 0)){
+                    alert('Please enter valid amount');
+                    $("#delCharge" + (l-1)).val('');
+                    return false;
+                } else {
+                    polygonChargeAppend(l);
+                    storePolygon(newShape.getPath(), l);
+                }
+            }
+
+            newShape.setEditable(false);
+            l++;
+        });
+
+        /*google.maps.event.addListener(map, 'click', function (event) {
+            alert(this.id);
+            //Once you have the id here, you can trigger the color change
+        });*/
+        google.maps.event.addListener(map, 'click', clearSelection);
+
+        function polygonChargeAppend(nextId) {
+
+            $("#chargeAppend").append(
+                '<div class="delivery_Charges" id="deliveryCharge_' + nextId + '">' +
+                '<div class="col-sm-12">' +
+                '<div class="row">' +
+                '<div class="input text">'+
+                '<input id="delCharge'+ nextId +'" class="form-control margin-b-10" type="text" placeholder="Enter Delivery Charge" name="AreaMaps['+ nextId +'][delivery_charge]">' +
+                '</div>'+
+                '<input id="area_'+ nextId +'_coords" type="hidden" name="coords['+ nextId +']area"/>'+
+                '<input id="area_'+ nextId +'_record" type="hidden" name="record['+ nextId +']area"/>'+
+                '<input id="area_'+ nextId +'_mapid" type="hidden" name="mapid['+ nextId +']area"/>'+
+                '</div>' +
+                '</div>' +
+                '</div>'
+            );
+        }
+
+        function getPolygons() {
+            var i;
+            $.post(Url + '/getPolygonList',{'resid':resid}, function(response){
+                var mappoints = '';
+                response = JSON.parse(response);
+                for(i in response.rows) {
+                    if(response.rows[i].mapcoords != '') {
+                        var
+                            coords = JSON.parse(response.rows[i].mapcoords).coordinates[0][0],
+                            poly   = new Array();
+
+                        for (j in coords) {
+                            poly.push(new google.maps.LatLng(coords[j][1], coords[j][0]))
+                        }
+
+                        drawPolygon( response.rows[i].id, poly, response.rows[i].colorcode );
+                    }
+                    mappoints = '<span class="close-btn-poly" style="cursor:pointer;background:'+response.rows[i].colorcode+'" onclick="deleteStoreMap('+response.rows[i].id+')"><i class="fa fa-close">X</i></span>';
+                    $("#DeleteMap"+i).html(mappoints);
+                }
+            });
+        }
+
+        function drawPolygon(id, poly, colorcode) {
+            var options = { paths: poly,
+                strokeColor: '#AA2143',
+                strokeOpacity: 1,
+                strokeWeight: 2,
+                fillColor: colorcode,
+                fillOpacity: 0.3 };
+
+            newPoly = new google.maps.Polygon(options);
+            newPoly.id = id;
+            newPoly.setMap(map);
+            google.maps.event.addListener(newPoly, 'click', function() {
+                this.setEditable(true);
+                setSelection(this);
+            });
+
+            polys.push(newPoly);
+        }
+
+        function clearSelection() {
+            if(selectedShape) {
+                selectedShape.setEditable(false);
+                selectedShape = null;
+            }
+        }
+
+        function setSelection(shape) {
+            clearSelection();
+            selectedShape = shape;
+            shape.setEditable(true);
+        }
+
+        function deleteSelectedShape(cout) {
+            if(selectedShape) {
+                selectedShape.setMap(null);
+                $("#deliveryCharge_"+cout).remove();
+            }
+        }
+
+        function storePolygon(path, id) {
+
+            var
+                coords  = new Array(),
+                pathcords = new Array(),
+                payload = {type: "MultiPolygon", coordinates: new Array()};
+
+            payload.coordinates.push(new Array());
+            payload.coordinates[0].push(new Array());
+
+            for (var i = 0; i < path.length; i++) {
+                coord = path.getAt(i);
+                coords.push( coord.lng() + " " + coord.lat() );
+                payload.coordinates[0][0].push([coord.lng(),coord.lat()])
+            }
+            $('#deliveryCharge_0').show();
+            if(id != '') {
+                $.post(Url + '/getCharge',{'mapid':id,'resid':resid}, function(data){
+
+                    var answer = data.split("^^^");
+                    $('#minOrder').val(answer[0]);
+                    $('#delCharge').val(answer[1]);
+                    return false;
+                });
+            }
+            var q = JSON.stringify(payload);
+            $('#area_'+ id +'_coords').val(q);
+            $('#area_'+ id +'_record').val(coords);
+            $('#area_'+ id +'_mapid').val(id);
+        }
+    }
+
+    var i = 0;
+    function radiusTextAppend(){
+
+        var settingsCount = $('.radius_settings').length;
+        var j = $('.deliver_Charge').length;
+        var k = $('.settingcount').length;
+        $(".settingcount").each(function() {
+            if($(this).val() == '') {
+                alert("please enter the radius");
+                return false;
+            }
+            k--;
+        });
+        $(".deliver_Charge").each(function() {
+            if($(this).val() == '') {
+                alert("please enter the delivery charge");
+                return false;
+            }
+            j--;
+        });
+
+        if (j == 0 && k == 0) {
+            $("#textAppend").append('<div class="radius_settings" id="radius_settings_' + settingsCount + '">' +
+                '<div class="input-group margin-b-10">' +
+                '<input type="text" class="form-control settingcount" name="DeliverySettings[' + settingsCount + '][delivery_miles]" placeholder="Enter Mile (radius)" id="' + settingsCount + '">' +
+                '<div id="rmve_' + settingsCount + '" class="input-group-addon" onclick="return generateRadius(' + settingsCount + ')" style="cursor: pointer"><i class="fa fa-check"></i> </div>' +
+                '</div>' +
+                '<div class="setColor" id="set_color_' + settingsCount + '"></div>' +
+                '</div>'
+            );
+        }
+        i++;
+    }
+
+    function generateRadius(id) {
+
+        var miles   =   $("#"+id).val();
+        if (isNaN($.trim(miles))) {
+            alert('Enter number only');
+            $('#'+id).val('');
+            return false;
+        }
+        if($.trim(miles) == ''){
+            alert('Enter radius');
+            return false;
+        }
+        if($.trim(miles) <= 0){
+            alert('Please Enter valid radius');
+            return false;
+        }
+        var Id  =   id;
+        if(Id>0) {
+            for(Id;Id>=0;Id--){
+                var existmiles  =   $("#"+(Id-1)).val();
+                if($.trim(miles) == $.trim(existmiles)) {
+                    alert("Radius already exist");
+                    return false;
+                }
+            }
+        }
+
+
+        var resid        = $('#StoreId').val();
+        var address      = $('#contact_address').val();
+        var latitude     = $('#store_latitude').val();
+        var longitude    = $('#store_longitude').val();
+        var radius_count = $('.radius_count').length;
+        var Url          = jssitebaseurl+'restaurants/ajaxaction';
+
+        $('#circle_'+id).remove();
+        $.post(
+            Url,
+            {'resid':'', 'miles':miles, 'address':address, 'latitude':latitude, 'longitude':longitude, 'circleCount':id,
+                'radius_count':radius_count, 'action':'getCircle'},
+            function(response){
+
+                var resultCircle = $.trim(response).split('**');
+                var result = resultCircle[0];
+                var color = resultCircle[1];
+                $('#delivery_charge_'+id+'').remove();
+                $('#circle_'+id+'').remove();
+                $('.mapCircle').append(
+                    '<div class="radius_count" id="circle_'+id+'">'+result+'</div>'
+                );
+
+                $('#set_color_'+id+'').append(
+                    '<div class="col-sm-12 no-padding margin-t-25 margin-b-10" id="delivery_charge_'+id+'">'+
+                    '<span class="bgorange padding-2" style="background-color: '+color+'"><i class="fa fa-map-marker"></i></span>'+
+                    '<a href="javascript:;" class="clsbtn close-btn pull-right" onclick="return removeCircle('+id+')">' +
+                    '<i class="fa fa-close"></i>'+
+                    '</a>'+
+                    '<div class="col-sm-7 no-padding margin-left-20">' +
+                    '<input type="text" id="deliveryChargeId_'+id+'" class="form-control deliver_Charge" name="DeliverySettings['+id+'][delivery_charge]" placeholder="Price">' +
+                    '<input type="hidden" name="DeliverySettings['+id+'][radius_color]" value="'+color+'">' +
+                    '<input type="hidden" name="DeliverySettings['+id+'][map_type]" value="Radius">' +
+                    '<input type="hidden" name="DeliverySettings['+id+'][delivery_miles]" value="'+miles+'">' +
+
+                    '</div>'+
+                    '</div>'
+                );
+            }
+        );
+        // }
+    }
+
+    function removeCircle(id) {
+        var Url         = jssitebaseurl+'restaurants/ajaxaction';
+
+        $.post(Url,{'id':id,'action' : 'removeCircle'},function(response) {
+                $('#'+id).remove();
+                $('#rmve_'+id).remove();
+                $('#set_color_'+id).html('');
+                $('.mapCircle').append(response);
+                $('#circle_'+id).hide();
+            }
+        );
+    }
+
+    function deleteStoreMap(id)
+    {
+        var Url         = jssitebaseurl+'restaurants/ajaxaction';
+        $.post(Url,{'id':id,'action' : 'deleteStoreMap'}, function(response){
+            if($.trim(response) == 'success'){
+                window.location.reload();
+                return false;
+            }
+        });
+    }
+
+    function getContactmail() {
+        var order_email = $("#order_email").val();
+        if(order_email == '') {
+            var contact_email = $("#contact_email").val();
+            $("#order_email").val(contact_email);
+        }
+    }
+
+    function isNumberKey(evt){
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+//Admin Restuarant Promotion image
+var special_row3=0;
+function promotionImage(){
+  $('.promoStoreImage').append(
+    '<span class="col-xs-3" id="promoimage_'+special_row3+'"><label for="data[res_promotion]['+special_row3+']" class="promoimagewrap">'+
+            '<input class="hide" type="file" name="data[res_promotion]['+special_row3+']" id="data[res_promotion]['+special_row3+']" size="25" />'+
+      '<a class="close-link" onclick="removeImage('+special_row3+');">X</a>'+
+    '</label></span>');        
+    special_row3++;
+}
+
+function removeImage(id){
+   $('#promoimage_'+id).remove();
+}
+
+function deletePromoImage(id) {
+  var check = confirm("Are Sure You Want Delete");
+  
+  if($.trim(check) == 'true') {
+    $.post(rp+'/Commons/deleteProcess',{'id':id,'model':'Promo'}, function(response) {
+      $('#imagelist_'+id).remove();
+    });
+  }
+}
+
+//Location based delivery
+
+    var locationRow = (typeof j != 'undefined') ? j : 1;
+    function appendDeliveryLocation() {
+        $('.appendDeliveryLocation').append(
+            '<div class="form-group" id="removeLocation_'+locationRow+'">'+
+            '<div class="col-sm-9 col-sm-offset-3">'+
+            '<div class="row">'+
+            '<div class="col-sm-2">'+
+            '<input type="text" class="form-control" name=data[DeliveryLocation]['+locationRow+'][city_name]" id="city_name_'+locationRow+'" onkeyup="getCityName(this.id);" placeholder="City">'+
+            '</div>'+
+            '<div class="col-sm-2">'+
+            '<input type="text" class="form-control deliveryLocationName" name=data[DeliveryLocation]['+locationRow+'][location_name]" id="location_name_'+locationRow+'" onkeyup="getLocationName(this.id, '+locationRow+');" placeholder="Postcode  ">'+
+            '</div>'+
+            '<div class="col-sm-2">'+
+            '<input type="text" class="form-control" name=data[DeliveryLocation]['+locationRow+'][minimum_order]" id="minimum_order_'+locationRow+'" placeholder="Min order">'+
+            '</div>'+
+            '<div class="col-sm-2">'+
+            '<input type="text" class="form-control" name=data[DeliveryLocation]['+locationRow+'][delivery_charge]" id="delivery_charge_'+locationRow+'" placeholder="Del Charge">'+
+            '</div>'+
+            '<div class="col-sm-2">'+
+            '<a onclick="removeLocation('+locationRow+');" class="btn btn-danger">X</a>'+
+            '</div>'+
+            '</div>'+
+            '</div>'+
+            '</div>'
+        );
+        locationRow++;
+    }
+
+    function removeLocation(removeId) {
+        $('#removeLocation_'+removeId).remove();
+        return false;
+    }
+
+
+    function getCityName(fieldId) {
+        var stateId = $('#state_id').val();
+        if (stateId == '') {
+            $("#contactInfo").click();
+            $(".stateErr").addClass('error').html('Please select your state');
+            $("#state_id").focus();
+            return false;
+        } else {
+            $.ajax({
+                type   : 'POST',
+                url    : jssitebaseurl+'restaurants/getCityName',
+                data   : {'state_id' : stateId},
+                success: function(response){
+                    var cityName = response.split(',');
+                    $('#'+fieldId).autocomplete({
+                        source: cityName,
+                    });
+                    return false;
+                }
+             });
+            return false;
+        }
+    }
+
+
+    function getLocationName(fieldId, $cityFieldId) {
+        var stateId = $('#state_id').val();
+        var cityName = $('#city_name_'+$cityFieldId).val();
+
+        if (stateId == '') {
+            $("#contactInfo").click();
+            $(".stateErr").addClass('error').html('Please select your state');
+            $("#state_id").focus();
+            return false;
+        } else if (cityName == '') {
+            $("#deliveryCityErr").html("Please enter the city");
+            $("#city_name_"+$cityFieldId).focus();
+            return false;
+        } else {
+            $.ajax({
+                type   : 'POST',
+                url    : jssitebaseurl+'restaurants/getLocationName',
+                data   : {'stateId' : stateId, 'cityName' : cityName},
+                success: function(response){
+                    var LocationName = response.split(',');
+                    $('#'+fieldId).autocomplete({
+                        source: LocationName,
+                        select : function(event, ui) {
+                            checkLocationAlreadyExist(fieldId, ui.item.value);
+                            return false;
+                        }
+                    });
+                    return false;
+                }
+            });
+            return false;
+        }
+    }
+
+    function checkLocationAlreadyExist(fieldId, locationName) {
+
+        var i = 0;
+        $('.deliveryLocationName').each(
+            function() {
+                if (this.value == locationName) {
+                    i++;
+                }
+            }
+        );
+
+        if (i > 0) {
+            searchBy = $('#searchBy').val();
+            $('#'+fieldId).val('');
+            $("#deliveryCityErr").html(searchBy+" already exist");
+            return false;
+        } else {
+            $('#'+fieldId).val(locationName);
+            $("#deliveryCityErr").html('');
+            return false;
+        }
+    }
+
+</script>
